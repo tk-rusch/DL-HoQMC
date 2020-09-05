@@ -28,7 +28,7 @@ to plot the stored results of the already trained neural network ensemble.
 
 To retrain the ensemble, run
     
-    python run_script <id>
+    python train_ensemble.py <id>
 
 where \<id> corresponce to the *id* of each neural network in the 
 ensemble specified in the correspodning *run_script.py* file.
