@@ -43,4 +43,4 @@ If applicable, simply run
     bash run.sh
     
 for each experiment. This will generate and submit a job-array, 
-where each element corresponce to one neural network in the ensemble.
+where each element corresponce to a neural network in the ensemble.
