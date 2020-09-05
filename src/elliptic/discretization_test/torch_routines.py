@@ -30,10 +30,9 @@ def get_neural_network(layer_sizes, activationFunction, Xavier_init=True):
         init_weights(model)
     return model
 
-def train(lr,reg,width,depth,N,max_epochs,id):
+def train(h,lr,reg,width,depth,N,max_epochs,id):
     ninp = 16
-    id = 1
-    id2 = id
+    h = int(h)
     width = int(width)
     depth = int(depth)
 
@@ -46,14 +45,14 @@ def train(lr,reg,width,depth,N,max_epochs,id):
     cwd = os.getcwd()
     data_path = cwd + '/../../../data/elliptic/discretization_test'
 
-    train_x1 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id)+'/In_'+str(int(np.log2(N)))+'.txt',delimiter=',').T)
-    train_y1 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id)+'/Out'+str(int(np.log2(N)))+'.txt',skiprows=1)[:,1]).unsqueeze(-1)
+    train_x1 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/In_'+str(int(np.log2(N)))+'.txt',delimiter=',').T)
+    train_y1 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/Out'+str(int(np.log2(N)))+'.txt',skiprows=1)[:,1]).unsqueeze(-1)
 
-    train_x2 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id)+'/In_'+str(int(np.log2(N)-1))+'.txt',delimiter=',').T)
-    train_y2 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id)+'/Out'+str(int(np.log2(N)-1))+'.txt',skiprows=1)[:,1]).unsqueeze(-1)
+    train_x2 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/In_'+str(int(np.log2(N)-1))+'.txt',delimiter=',').T)
+    train_y2 = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/Out'+str(int(np.log2(N)-1))+'.txt',skiprows=1)[:,1]).unsqueeze(-1)
 
-    test_x = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id2)+'/In_12.txt',delimiter=',')[:,1:].T)
-    test_y = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(id2)+'/Out12.txt',skiprows=1)[1:,1]).unsqueeze(-1)
+    test_x = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/In_12.txt',delimiter=',')[:,1:].T)
+    test_y = torch.from_numpy(np.loadtxt(data_path+'/h_'+str(h)+'/Out12.txt',skiprows=1)[1:,1]).unsqueeze(-1)
 
     optimizer = optim.Adam(model.parameters(), lr, weight_decay=reg)
     epochs = max_epochs
@@ -80,6 +79,6 @@ def train(lr,reg,width,depth,N,max_epochs,id):
     train_loss = E_T(output1, train_y1.float(), output2, train_y2.float()).item()
     test_loss = test(test_x, test_y)
 
-    Path('new_results_'+str(id)).mkdir(parents=True, exist_ok=True)
-    with open('new_results_'+str(id)+'/N_'+str(int(N))+'.txt','a') as file:
+    Path('new_results_'+str(h)).mkdir(parents=True, exist_ok=True)
+    with open('new_results_'+str(h)+'/N_'+str(int(N))+'.txt','a') as file:
         file.write(str(train_loss)+ ' ' + str(test_loss)+'\n')

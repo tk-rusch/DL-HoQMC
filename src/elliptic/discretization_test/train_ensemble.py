@@ -3,6 +3,7 @@ from sys import argv
 import numpy as np
 
 def job_id_to_parameters(id,Ns):
+    hs = [1,2,3]
     widths = [6, 12, 24]
     depths = [4, 8, 16]
     lrs = [0.0001]
@@ -10,13 +11,14 @@ def job_id_to_parameters(id,Ns):
     num_inits = 2
     params = []
 
-    for lr in lrs:
-        for l in lambdas:
-            for w in widths:
-                for d in depths:
-                    for N in Ns:
-                        for i in range(num_inits):
-                            params.append(np.array([lr,l,w,d,N]))
+    for h in hs:
+        for lr in lrs:
+            for l in lambdas:
+                for w in widths:
+                    for d in depths:
+                        for N in Ns:
+                            for i in range(num_inits):
+                                params.append(np.array([h,lr,l,w,d,N]))
 
     return params[id]
 
