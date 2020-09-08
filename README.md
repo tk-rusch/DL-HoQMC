@@ -1,6 +1,6 @@
 # Higher-order Quasi-Monte Carlo Training of Deep Neural Networks
 This repository contains the implementation to reproduce the numerical experiments 
-of the paper [Higher-order Quasi-Monte Carlo Training of Deep Neural Networks](https://arxiv.org)
+of the paper [Higher-order Quasi-Monte Carlo Training of Deep Neural Networks](https://arxiv.org/pdf/2009.02713.pdf)
 
 
 ## Installation
